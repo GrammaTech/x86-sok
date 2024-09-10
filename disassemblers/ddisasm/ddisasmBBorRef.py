@@ -96,7 +96,7 @@ def dumpBlocks(ir: gtirb.IR, output: Path) -> None:
             logging.debug("function: %s", func_name)
 
             # Pick the lowest address if there are multiple entries
-            entry_block = min(entries)
+            entry_block = min(entries, key=lambda x: x.address)
 
             pbFunc = module.fuc.add()
             pbFunc.va = entry_block.address

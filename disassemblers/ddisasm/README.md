@@ -1,6 +1,6 @@
 # DDISASM
 
-[ddsiasm](https://github.com/GrammaTech/ddisasm)
+[ddisasm](https://github.com/GrammaTech/ddisasm)
 
 ## Requirement
 
