@@ -5,7 +5,7 @@ requires = [
 ]
 
 [project]
-name = "x86-sok"
+name = "x86_sok"
 version = "0.1.0"
 description = "ground truth extraction from binary"
 readme = "README.md"
@@ -21,7 +21,7 @@ dependencies = [
 include-package-data = false
 
 [tool.setuptools.packages.find]
-where = [
+include = [
   "ccr",
   "compare",
   "extract_gt",

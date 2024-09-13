@@ -144,6 +144,7 @@ GroundTruthRange = list()
 # in order to increase the speed, we expand the range list
 def expandPadding():
     global paddingAddrList
+    paddingAddrList = set()
     for (start, end) in paddingMap.items():
         [paddingAddrList.add(addr) for addr in range(start, start + end)]
 
@@ -274,6 +275,9 @@ def readInstructions(mModule, groundTruth):
     tmpFuncSet = set()
     checkDouble = False
     global groundTruthFuncRange
+    groundTruthFuncRange = dict()
+    global paddingMap
+    paddingMap = dict()
     for func in mModule.fuc:
         range_start = -1
         range_end = -1
@@ -287,7 +291,6 @@ def readInstructions(mModule, groundTruth):
             # collect the range of padding bytes
             if True == groundTruth:
                 # logging.info("bb: 0x%x, size: 0x%x, padding size: 0x%x" % (bb.va, bb.size, bb.padding))
-                global paddingMap
                 paddingMap[bb.va+bb.size] = bb.padding
             for inst in bb.instructions:
                 inst_va = inst.va
@@ -304,6 +307,7 @@ def readInstructions(mModule, groundTruth):
 
     # check if we include all linker function
     global notIncludedLinkerFunc
+    notIncludedLinkerFunc = set()
     global linkerFuncAddr
     
     if groundTruth:
@@ -360,6 +364,7 @@ def getLinkerFunctionAddr(binary):
         symsec = elffile.get_section_by_name('.symtab')
         get_pc_thunk_bx = 0x0
         global linkerFuncAddr
+        linkerFuncAddr = set()
         if symsec == None:
             return
         for sym in symsec.iter_symbols():
@@ -379,6 +384,7 @@ def getLinkerFunctionRange(binary):
         symsec = elffile.get_section_by_name('.symtab')
         funcSet = set()
         global linkerExcludeFunction
+        linkerExcludeFunction = dict()
         get_pc_thunk_bx = 0x0
         if symsec == None:
             return
