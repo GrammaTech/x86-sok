@@ -374,7 +374,7 @@ def getLinkerFunctionAddr(binary):
                 continue
             if name in linker_libc_func:
                 v_addr = sym['st_value']
-                if v_addr % 4 == 1 and arm:
+                if v_addr % 2 == 1 and arm:
                     v_addr = v_addr - 1
                 logging.info("linker: %s: %x" % (name, v_addr))
                 linkerFuncAddr.add(v_addr)
