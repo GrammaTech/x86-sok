@@ -120,7 +120,8 @@ linker_libc_func = {
                "_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEaSEPKc",
                "_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendERKS4_mm",
                "_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKcm",
-               "_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEpLEPKc"
+               "_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEpLEPKc",
+               "__ctzdi2"
 }
 linkerFuncAddr = set()
 notIncludedLinkerFunc = set()
@@ -392,7 +393,7 @@ def getLinkerFunctionRange(binary):
             if 'STT_FUNC' != sym.entry['st_info']['type']:
                 continue
             v_addr = sym['st_value']
-            if v_addr % 4 == 1 and arm:
+            if v_addr % 2 == 1 and arm:
                 v_addr = v_addr - 1
 
             funcSet.add(v_addr)
